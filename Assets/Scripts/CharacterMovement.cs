@@ -12,13 +12,22 @@ public class CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            speed = 15.0f;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            speed = 10.0f;
+        }
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        Vector3 move = transform.right * x + transform.up * gravity + transform.forward * z;
+        Vector3 move = transform.up * gravity + transform.forward * z;
 
         controller.Move(move * speed * Time.deltaTime);
 
+        transform.Rotate(0, Input.GetAxis("Horizontal"), 0);
 
     }
 }

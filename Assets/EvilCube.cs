@@ -10,7 +10,8 @@ public class EvilCube : MonoBehaviour
 
     [Range(0f, 10f)]
     [SerializeField]
-    private float closeEnoughDistance = 1f;
+    private float closeEnoughDistance = 10.0f;
+    private float gravity = -2.0f;
 
     private GameObject _player;
 
@@ -21,7 +22,12 @@ public class EvilCube : MonoBehaviour
 
     void Update()
     {
-        if (Vector3.Distance(transform.position, _player.transform.position) > closeEnoughDistance) // check if distance between player and gameobject is greater than close enough value
+        print("Distance: " + Vector3.Distance(transform.position, _player.transform.position));
+        if (Vector3.Distance(transform.position, _player.transform.position) > closeEnoughDistance)
+        {
+            stopAndStare();
+        }
+        else
         {
             PerformFollowPlayer();
         }
@@ -30,8 +36,15 @@ public class EvilCube : MonoBehaviour
     private void PerformFollowPlayer()
     {
         Vector3 direction = _player.transform.position - transform.position; // get the direction from me to player
+        //direction.y += gravity;
         direction.Normalize();  //normalize direction ( values -> (0..1) )
 
         transform.position += direction * movementSpeed * Time.deltaTime;
+    }
+
+    private void stopAndStare()
+    {
+        transform.position += Vector3.zero;
+        transform.Rotate(0, 1, 0);
     }
 }

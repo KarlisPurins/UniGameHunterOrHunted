@@ -12,6 +12,7 @@ public class EvilCube : MonoBehaviour
     [SerializeField]
     private float closeEnoughDistance = 10.0f;
     private float gravity = -2.0f;
+    private float distanceToPlayer = 0.0f; 
 
     private GameObject _player;
 
@@ -22,14 +23,15 @@ public class EvilCube : MonoBehaviour
 
     void Update()
     {
-        print("Distance: " + Vector3.Distance(transform.position, _player.transform.position));
-        if (Vector3.Distance(transform.position, _player.transform.position) > closeEnoughDistance)
+        distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
+        print(distanceToPlayer);
+        if (distanceToPlayer > closeEnoughDistance)
         {
-            stopAndStare();
+            PerformFollowPlayer();
         }
         else
         {
-            PerformFollowPlayer();
+            stopAndStare();
         }
     }
 
@@ -45,6 +47,5 @@ public class EvilCube : MonoBehaviour
     private void stopAndStare()
     {
         transform.position += Vector3.zero;
-        transform.Rotate(0, 1, 0);
     }
 }

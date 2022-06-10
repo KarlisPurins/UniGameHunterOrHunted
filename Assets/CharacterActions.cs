@@ -39,7 +39,7 @@ public class CharacterActions : MonoBehaviour
         //direction.Normalize();  //normalize direction ( values -> (0..1) )
         
         //Knockback: Not working yet
-        other.transform.position += direction * knockbackSpeed * Time.deltaTime;
+        //other.transform.position += direction * knockbackSpeed * Time.deltaTime;
         //other.gameObject.transform.position += direction * knockbackSpeed * Time.deltaTime;
 
         lifeLeftText.text = "Life Points Left: " + lifePoints;

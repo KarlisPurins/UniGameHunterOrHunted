@@ -8,7 +8,7 @@ public class HammerAttack : MonoBehaviour
     BoxCollider collider;
     private GameObject weaponObj;
     private Text cubesLeftText;
-    private static int cubesLeft = 30;
+    public static int cubesLeft = 30;
     private Text youWonText;
 
     void Start()
@@ -40,7 +40,7 @@ public class HammerAttack : MonoBehaviour
             print("damage to cube");
             //doDamageToCube
             Destroy(other.gameObject);
-            cubesLeft -= 10;
+            cubesLeft -= 1;
             cubesLeftText.text = "Evil Cubos Left: " + cubesLeft;
         }
 

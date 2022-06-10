@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EvilCube : MonoBehaviour
+public class evilCubeBoss : MonoBehaviour
 {
     [Range(0f, 10f)]
-    private float movementSpeed = 5f;
+    private float movementSpeed = 7f;
 
     [Range(0f, 300f)]
-    private float closeEnoughDistance = 30.0f;
+    private float closeEnoughDistance = 500.0f;
     private float gravity = 0.2f; //gravity is positive, so they float just above ground and not in ground
-    private float distanceToPlayer = 0.0f; 
+    private float distanceToPlayer = 0.0f;
 
     private GameObject _player;
 
@@ -22,6 +22,10 @@ public class EvilCube : MonoBehaviour
 
     void Update()
     {
+        if(HammerAttack.cubesLeft <= 1)
+        {
+            this.tag = "Enemy";
+        }
         distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
         if (distanceToPlayer < closeEnoughDistance)
         {
@@ -36,7 +40,7 @@ public class EvilCube : MonoBehaviour
     private void PerformFollowPlayer()
     {
         Vector3 direction = _player.transform.position - transform.position; // get the direction from me to player
-        
+
         direction.Normalize();//normalize direction ( values -> (0..1) )
         direction.y += gravity;
 
@@ -52,9 +56,10 @@ public class EvilCube : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            CharacterActions.sufferDamage(_player.transform.position - transform.position, other);
+            CharacterActions.lifePoints = 0;
         }
     }
 
 
 }
+

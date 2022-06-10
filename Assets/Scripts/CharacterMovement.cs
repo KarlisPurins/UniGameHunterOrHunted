@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class CharacterMovement : MonoBehaviour
     public static Animator animator;
     public static bool isDead = false;
     public static bool isVictory = false;
+    private Text lifePointsText;
+    private Text damageText;
+
 
 
 
@@ -21,6 +25,8 @@ public class CharacterMovement : MonoBehaviour
     {
         _player = GameObject.FindGameObjectWithTag("Player");
         animator = GameObject.Find("Character").GetComponent<Animator>();
+        lifePointsText = GameObject.Find("LifeLeft").GetComponent<Text>();
+        damageText = GameObject.Find("CharDamage").GetComponent<Text>();
     }
     void Update()
     {
@@ -57,18 +63,14 @@ public class CharacterMovement : MonoBehaviour
         if (isDead)
         { 
             animator.Play("Death");
-            speed = 0;
-            Vector3 move = Vector3.zero;
-
-            controller.Move(move * speed * Time.deltaTime);
+            stopMovement();
+            hideUnneededUI();
         }
         else if (isVictory)
         {
             animator.Play("Buff");
-            speed = 0;
-            Vector3 move = Vector3.zero;
-
-            controller.Move(move * speed * Time.deltaTime);
+            stopMovement();
+            hideUnneededUI();
         }
         else
         {
@@ -78,8 +80,22 @@ public class CharacterMovement : MonoBehaviour
 
             transform.Rotate(0, Input.GetAxis("Horizontal"), 0);
         }
-        
 
+        
+    }
+
+    private void stopMovement()
+    {
+        speed = 0;
+        Vector3 move = Vector3.zero;
+
+        controller.Move(move * speed * Time.deltaTime);
+    }
+
+    private void hideUnneededUI()
+    {
+        lifePointsText.enabled = false;
+        damageText.enabled = false;
     }
 
 

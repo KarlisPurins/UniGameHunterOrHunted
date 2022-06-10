@@ -6,10 +6,13 @@ public class CharacterMovement : MonoBehaviour
 {
     public Camera cmCamera;
     public CharacterController controller;
-    public float speed = 10.0f;
+    private float speed = 10.0f;
     float gravity = -10.0f;
     private GameObject _player;
-    Animator animator;
+    public static Animator animator;
+    public static bool isDead = false;
+
+
 
     // Update is called once per frame
 
@@ -49,17 +52,26 @@ public class CharacterMovement : MonoBehaviour
         {
             animator.SetBool("isWalking", false);
         }
+
+        if (isDead)
+        { 
+            animator.Play("Death");
+            speed = 0;
+            Vector3 move = Vector3.zero;
             
-        Vector3 move = transform.up * gravity + transform.forward * z;
+            controller.Move(move * speed * Time.deltaTime);
+        }
+        else
+        {
+            Vector3 move = transform.up * gravity + transform.forward * z;
 
-        controller.Move(move * speed * Time.deltaTime);
+            controller.Move(move * speed * Time.deltaTime);
 
-        transform.Rotate(0, Input.GetAxis("Horizontal"), 0);
+            transform.Rotate(0, Input.GetAxis("Horizontal"), 0);
+        }
+        
 
     }
 
-    public void hitEnemy()
-    {
 
-    }
 }

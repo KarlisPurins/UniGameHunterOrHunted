@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class EvilCube : MonoBehaviour
 {
-    [Range(0f, 50f)]
+    [Range(0f, 10f)]
     [SerializeField]
     private float movementSpeed = 5f;
 
-    [Range(0f, 10f)]
+    [Range(0f, 300f)]
     [SerializeField]
     private float closeEnoughDistance = 10.0f;
     private float gravity = 0.2f; //gravity is positive, so they float just above ground and not in ground

@@ -11,6 +11,7 @@ public class CharacterMovement : MonoBehaviour
     private GameObject _player;
     public static Animator animator;
     public static bool isDead = false;
+    public static bool isVictory = false;
 
 
 
@@ -58,7 +59,15 @@ public class CharacterMovement : MonoBehaviour
             animator.Play("Death");
             speed = 0;
             Vector3 move = Vector3.zero;
-            
+
+            controller.Move(move * speed * Time.deltaTime);
+        }
+        else if (isVictory)
+        {
+            animator.Play("Buff");
+            speed = 0;
+            Vector3 move = Vector3.zero;
+
             controller.Move(move * speed * Time.deltaTime);
         }
         else

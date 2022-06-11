@@ -18,10 +18,15 @@ public class EvilCube : MonoBehaviour
     void Start()
     {
         _player = GameObject.FindGameObjectWithTag("Player"); //Find player by tag. It can be assigned in game object inspector tag section (below name).
+        StartCoroutine(WeirdSpawningPatrol());
     }
 
     void Update()
     {
+        if (CharacterMovement.isDead)
+        {
+            killYourself();
+        }
         distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
         if (distanceToPlayer < closeEnoughDistance)
         {
@@ -35,6 +40,7 @@ public class EvilCube : MonoBehaviour
 
     private void PerformFollowPlayer()
     {
+        StartCoroutine(lookAtPlayer());
         Vector3 direction = _player.transform.position - transform.position; // get the direction from me to player
         
         direction.Normalize();//normalize direction ( values -> (0..1) )
@@ -45,6 +51,7 @@ public class EvilCube : MonoBehaviour
 
     private void stopAndStare()
     {
+        StopCoroutine(lookAtPlayer());
         transform.position += Vector3.zero;
     }
 
@@ -55,6 +62,29 @@ public class EvilCube : MonoBehaviour
             CharacterActions.sufferDamage(_player.transform.position - transform.position, other);
         }
     }
+
+    IEnumerator lookAtPlayer()
+    {
+        transform.LookAt(_player.transform.position);
+        yield return new WaitForSeconds(1);
+    }
+
+    IEnumerator WeirdSpawningPatrol()
+    {
+        Vector3 futurePos = transform.position;
+        futurePos.x += Random.Range(-2.0f, 2.0f);
+        futurePos.z += Random.Range(-2.0f, 2.0f);
+        futurePos.y = Terrain.activeTerrain.SampleHeight(futurePos) + 2.0f;
+        transform.position = futurePos;  
+        yield return new WaitForSeconds(5);
+    }
+
+
+    public void killYourself()
+    {
+        Destroy(this.gameObject);
+    }
+
 
 
 }

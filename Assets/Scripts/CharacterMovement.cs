@@ -30,7 +30,7 @@ public class CharacterMovement : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetMouseButton(0)){
+        if (Input.GetKey(KeyCode.RightShift)){
             animator.SetBool("isAttacking", true);
         }
         else
@@ -97,6 +97,5 @@ public class CharacterMovement : MonoBehaviour
         lifePointsText.enabled = false;
         damageText.enabled = false;
     }
-
 
 }

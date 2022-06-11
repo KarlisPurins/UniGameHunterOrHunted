@@ -8,7 +8,7 @@ public class evilCubeBoss : MonoBehaviour
     private float movementSpeed = 7f;
 
     [Range(0f, 300f)]
-    private float closeEnoughDistance = 500.0f;
+    private float closeEnoughDistance = 1000.0f;
     private float gravity = 0.2f; //gravity is positive, so they float just above ground and not in ground
     private float distanceToPlayer = 0.0f;
 
@@ -22,6 +22,10 @@ public class evilCubeBoss : MonoBehaviour
 
     void Update()
     {
+        if (CharacterMovement.isDead)
+        {
+            killYourself();
+        }
         if(HammerAttack.cubesLeft <= 1)
         {
             this.tag = "Enemy";
@@ -39,6 +43,7 @@ public class evilCubeBoss : MonoBehaviour
 
     private void PerformFollowPlayer()
     {
+        StartCoroutine(lookAtPlayer());
         Vector3 direction = _player.transform.position - transform.position; // get the direction from me to player
 
         direction.Normalize();//normalize direction ( values -> (0..1) )
@@ -60,6 +65,17 @@ public class evilCubeBoss : MonoBehaviour
         }
     }
 
+
+    IEnumerator lookAtPlayer()
+    {
+        transform.LookAt(_player.transform.position);
+        yield return new WaitForSeconds(1.0f);
+    }
+
+    public void killYourself()
+    {
+        Destroy(this.gameObject);
+    }
 
 }
 

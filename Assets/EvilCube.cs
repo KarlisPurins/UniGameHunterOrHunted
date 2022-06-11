@@ -18,7 +18,6 @@ public class EvilCube : MonoBehaviour
     void Start()
     {
         _player = GameObject.FindGameObjectWithTag("Player"); //Find player by tag. It can be assigned in game object inspector tag section (below name).
-        StartCoroutine(WeirdSpawningPatrol());
     }
 
     void Update()
@@ -69,14 +68,14 @@ public class EvilCube : MonoBehaviour
         yield return new WaitForSeconds(1);
     }
 
-    IEnumerator WeirdSpawningPatrol()
+    IEnumerator WeirdSpawningPatrol() //It moves the cube inches to some way
     {
+        yield return new WaitForSeconds(5);
         Vector3 futurePos = transform.position;
         futurePos.x += Random.Range(-2.0f, 2.0f);
         futurePos.z += Random.Range(-2.0f, 2.0f);
         futurePos.y = Terrain.activeTerrain.SampleHeight(futurePos) + 2.0f;
         transform.position = futurePos;  
-        yield return new WaitForSeconds(5);
     }
 
 

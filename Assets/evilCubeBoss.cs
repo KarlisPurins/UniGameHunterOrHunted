@@ -26,7 +26,7 @@ public class evilCubeBoss : MonoBehaviour
         {
             killYourself();
         }
-        if(HammerAttack.cubesLeft <= 1)
+        if(HammerAttack.cubesLeft <= 1) //If it is the last one, it makes it KILLABLE
         {
             this.tag = "Enemy";
         }

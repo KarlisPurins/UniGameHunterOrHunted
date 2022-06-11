@@ -15,6 +15,7 @@ public class CharacterMovement : MonoBehaviour
     public static bool isVictory = false;
     private Text lifePointsText;
     private Text damageText;
+    private static Transform playerTransformObject;
 
 
 
@@ -30,6 +31,11 @@ public class CharacterMovement : MonoBehaviour
     }
     void Update()
     {
+        playerTransformObject = transform;
+        if (Input.GetKey(KeyCode.Space))
+        {
+            specialAttack();
+        }
         if (Input.GetKey(KeyCode.RightShift)){
             animator.SetBool("isAttacking", true);
         }
@@ -96,6 +102,16 @@ public class CharacterMovement : MonoBehaviour
     {
         lifePointsText.enabled = false;
         damageText.enabled = false;
+    }
+
+    private void specialAttack()
+    {
+        animator.Play("SpellCast");
+    }
+
+    public static Transform getCharTransformObject()
+    {
+        return playerTransformObject;
     }
 
 }

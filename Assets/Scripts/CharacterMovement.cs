@@ -14,7 +14,7 @@ public class CharacterMovement : MonoBehaviour
     public static bool isDead = false;
     public static bool isVictory = false;
     private Text lifePointsText;
-    private Text damageText;
+    private Text knivesLeftText;
     private static Transform playerTransformObject;
 
 
@@ -27,7 +27,7 @@ public class CharacterMovement : MonoBehaviour
         _player = GameObject.FindGameObjectWithTag("Player");
         animator = GameObject.Find("Character").GetComponent<Animator>();
         lifePointsText = GameObject.Find("LifeLeft").GetComponent<Text>();
-        damageText = GameObject.Find("CharDamage").GetComponent<Text>();
+        knivesLeftText = GameObject.Find("KnivesLeft").GetComponent<Text>();
     }
     void Update()
     {
@@ -101,7 +101,7 @@ public class CharacterMovement : MonoBehaviour
     private void hideUnneededUI()
     {
         lifePointsText.enabled = false;
-        damageText.enabled = false;
+        knivesLeftText.enabled = false;
     }
 
     private void specialAttack()

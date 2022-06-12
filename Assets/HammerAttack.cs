@@ -10,6 +10,7 @@ public class HammerAttack : MonoBehaviour
     private Text cubesLeftText;
     public static int cubesLeft = 30;
     private Text youWonText;
+    private Text cantKillBossText;
 
     void Start()
     {
@@ -17,9 +18,10 @@ public class HammerAttack : MonoBehaviour
         cubesLeftText = GameObject.Find("CubesLeft").GetComponent<Text>();
         youWonText = GameObject.Find("YouWon").GetComponent<Text>();
         youWonText.enabled = false;
+        cantKillBossText = GameObject.Find("CantKillBoss").GetComponent<Text>();
+        cantKillBossText.enabled = false;
 
         collider = weaponObj.GetComponent<BoxCollider>();
-
         collider.enabled = false;
     }
 
@@ -34,15 +36,18 @@ public class HammerAttack : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print("collision with hammer");
         if (other.gameObject.CompareTag("Enemy"))
         {
-            print("damage to cube");
             //doDamageToCube
             Destroy(other.gameObject);
             cubesLeft -= 1;
             cubesLeftText.text = "Evil Cubos Left: " + cubesLeft;
         }
+        if (other.gameObject.CompareTag("Boss"))
+        {
+            StartCoroutine(ShowCantKillBossText());
+        }
+
 
 
     }
@@ -55,5 +60,12 @@ public class HammerAttack : MonoBehaviour
     public void endDamage()
     {
         collider.enabled = false;
+    }
+
+    IEnumerator ShowCantKillBossText()
+    {
+        cantKillBossText.enabled = true;
+        yield return new WaitForSeconds(4);
+        cantKillBossText.enabled = false;
     }
 }

@@ -16,6 +16,7 @@ public class MagicAttack : MonoBehaviour
     private int knivesLeft = 4;
     private bool canShoot = true;
     private Text cantKillBossText;
+    public AudioSource knifeKill;
 
     private void Start()
     {
@@ -88,6 +89,7 @@ public class MagicAttack : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             //doDamageToCube
+            knifeKill.Play();
             Destroy(other.gameObject);
             HammerAttack.cubesLeft -= 1;
             cubesLeftText.text = "Evil Cubos Left: " + HammerAttack.cubesLeft;
@@ -119,5 +121,6 @@ public class MagicAttack : MonoBehaviour
         yield return new WaitForSeconds(4);
         cantKillBossText.enabled = false;
     }
+
 
 }

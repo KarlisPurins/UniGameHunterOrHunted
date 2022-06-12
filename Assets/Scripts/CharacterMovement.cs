@@ -67,7 +67,7 @@ public class CharacterMovement : MonoBehaviour
         }
 
         if (isDead)
-        { 
+        {
             animator.Play("Death");
             stopMovement();
             hideUnneededUI();

@@ -11,6 +11,7 @@ public class HammerAttack : MonoBehaviour
     public static int cubesLeft = 30;
     private Text youWonText;
     private Text cantKillBossText;
+    public AudioSource CubeHit;
 
     void Start()
     {
@@ -39,6 +40,7 @@ public class HammerAttack : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             //doDamageToCube
+            PlayCubeGetHit();
             Destroy(other.gameObject);
             cubesLeft -= 1;
             cubesLeftText.text = "Evil Cubos Left: " + cubesLeft;
@@ -67,5 +69,10 @@ public class HammerAttack : MonoBehaviour
         cantKillBossText.enabled = true;
         yield return new WaitForSeconds(4);
         cantKillBossText.enabled = false;
+    }
+
+    public void PlayCubeGetHit()
+    {
+        CubeHit.Play();
     }
 }

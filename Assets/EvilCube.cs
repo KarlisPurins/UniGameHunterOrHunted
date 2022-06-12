@@ -13,7 +13,8 @@ public class EvilCube : MonoBehaviour
     private float distanceToPlayer = 0.0f; 
 
     private GameObject _player;
-
+    public AudioSource ManGetHit;
+    public AudioSource manDies;
 
     void Start()
     {
@@ -24,6 +25,7 @@ public class EvilCube : MonoBehaviour
     {
         if (CharacterMovement.isDead)
         {
+            manDies.Play();
             killYourself();
         }
         distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
@@ -58,6 +60,7 @@ public class EvilCube : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            PlayManGetHit();
             CharacterActions.sufferDamage(_player.transform.position - transform.position, other);
         }
     }
@@ -82,6 +85,11 @@ public class EvilCube : MonoBehaviour
     public void killYourself()
     {
         Destroy(this.gameObject);
+    }
+
+    public void PlayManGetHit()
+    {
+        ManGetHit.Play();
     }
 
 
